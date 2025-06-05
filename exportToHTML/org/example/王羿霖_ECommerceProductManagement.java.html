@@ -1,0 +1,173 @@
+<html>
+<head>
+<title>ECommerceProductManagement.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ECommerceProductManagement.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">org</span><span class="s2">.</span><span class="s1">example</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">net</span><span class="s2">.</span><span class="s1">datafaker</span><span class="s2">.</span><span class="s1">Faker</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">example</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Product</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">ArrayList</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">ECommerceProductManagement </span><span class="s2">{</span>
+    <span class="s0">public static void </span><span class="s1">main</span><span class="s2">(</span><span class="s1">String</span><span class="s2">[] </span><span class="s1">args</span><span class="s2">) {</span>
+
+        <span class="s1">Faker faker </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Faker</span><span class="s2">();</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s1">String</span><span class="s2">[] </span><span class="s1">categories </span><span class="s2">= {</span><span class="s3">&quot;3C&quot;</span><span class="s2">, </span><span class="s3">&quot;家用電器&quot;</span><span class="s2">, </span><span class="s3">&quot;服飾&quot;</span><span class="s2">, </span><span class="s3">&quot;食品&quot;</span><span class="s2">, </span><span class="s3">&quot;書籍&quot;</span><span class="s2">};</span>
+
+        <span class="s1">productList </span><span class="s2">= </span><span class="s1">initializeProduct</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">, </span><span class="s1">faker</span><span class="s2">, </span><span class="s1">categories</span><span class="s2">);</span>
+
+        <span class="s1">shortageProduct</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+
+        <span class="s1">stockProduct3C</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+        <span class="s1">stockProductHouseholdAppliances</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+        <span class="s1">stockProductClothes</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+        <span class="s1">stockProductGroceries</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+        <span class="s1">stockProductBookies</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+
+        <span class="s1">availableProducts</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">, </span><span class="s1">faker</span><span class="s2">, </span><span class="s1">categories</span><span class="s2">);</span>
+        <span class="s1">unavailableProducts</span><span class="s2">(</span><span class="s1">productList</span><span class="s2">);</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static </span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">initializeProduct</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">,</span><span class="s1">Faker faker</span><span class="s2">, </span><span class="s1">String</span><span class="s2">[] </span><span class="s1">categories</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================初始商品================&quot;</span><span class="s2">);</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s0">int </span><span class="s1">i </span><span class="s2">= </span><span class="s4">0</span><span class="s2">; </span><span class="s1">i </span><span class="s2">&lt; </span><span class="s4">15</span><span class="s2">; </span><span class="s1">i</span><span class="s2">++) {</span>
+            <span class="s1">String id </span><span class="s2">= </span><span class="s1">faker</span><span class="s2">.</span><span class="s1">idNumber</span><span class="s2">().</span><span class="s1">invalid</span><span class="s2">();</span>
+            <span class="s1">String name </span><span class="s2">= </span><span class="s1">faker</span><span class="s2">.</span><span class="s1">commerce</span><span class="s2">().</span><span class="s1">productName</span><span class="s2">();</span>
+            <span class="s1">String category </span><span class="s2">= </span><span class="s1">categories</span><span class="s2">[</span><span class="s1">faker</span><span class="s2">.</span><span class="s1">random</span><span class="s2">().</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s1">categories</span><span class="s2">.</span><span class="s1">length</span><span class="s2">)];</span>
+            <span class="s0">double </span><span class="s1">price </span><span class="s2">= </span><span class="s1">Double</span><span class="s2">.</span><span class="s1">parseDouble</span><span class="s2">(</span><span class="s1">faker</span><span class="s2">.</span><span class="s1">commerce</span><span class="s2">().</span><span class="s1">price</span><span class="s2">(</span><span class="s4">10</span><span class="s2">, </span><span class="s4">1000</span><span class="s2">));</span>
+            <span class="s0">int </span><span class="s1">stock </span><span class="s2">= </span><span class="s1">faker</span><span class="s2">.</span><span class="s1">random</span><span class="s2">().</span><span class="s1">nextInt</span><span class="s2">(</span><span class="s4">0</span><span class="s2">, </span><span class="s4">100</span><span class="s2">);</span>
+
+            <span class="s1">Product product </span><span class="s2">= </span><span class="s0">new </span><span class="s1">Product</span><span class="s2">(</span><span class="s1">id</span><span class="s2">, </span><span class="s1">name</span><span class="s2">, </span><span class="s1">category</span><span class="s2">, </span><span class="s1">price</span><span class="s2">, </span><span class="s1">stock</span><span class="s2">);</span>
+            <span class="s1">productList</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">return </span><span class="s1">productList</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">shortageProduct</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存不足商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">lowStockProduct </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getStockQuantity</span><span class="s2">() &lt; </span><span class="s4">10</span><span class="s2">) {</span>
+                <span class="s1">lowStockProduct</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">lowStockProduct</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">stockProduct3C</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存內的3C商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">String targetProduct </span><span class="s2">= </span><span class="s3">&quot;3C&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">stockProduct3C </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">targetProduct</span><span class="s2">)) {</span>
+                <span class="s1">stockProduct3C</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">stockProduct3C</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">stockProductHouseholdAppliances</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存內的家用電器商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">String targetProduct </span><span class="s2">= </span><span class="s3">&quot;家用電器&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">stockProductHouseholdAppliances </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">targetProduct</span><span class="s2">)) {</span>
+                <span class="s1">stockProductHouseholdAppliances</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">stockProductHouseholdAppliances</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">stockProductClothes</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存內的服飾商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">String targetProduct </span><span class="s2">= </span><span class="s3">&quot;服飾&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">stockProductClothes </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">targetProduct</span><span class="s2">)) {</span>
+                <span class="s1">stockProductClothes</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">stockProductClothes</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">stockProductGroceries</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存內的食品商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">String targetProduct </span><span class="s2">= </span><span class="s3">&quot;食品&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">stockProductGroceries </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">targetProduct</span><span class="s2">)) {</span>
+                <span class="s1">stockProductGroceries</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">stockProductGroceries</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">stockProductBookies</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================庫存內的書籍商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">String targetProduct </span><span class="s2">= </span><span class="s3">&quot;書籍&quot;</span><span class="s2">;</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">stockProductBookies </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getCategory</span><span class="s2">().</span><span class="s1">equals</span><span class="s2">(</span><span class="s1">targetProduct</span><span class="s2">)) {</span>
+                <span class="s1">stockProductBookies</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">stockProductBookies</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">availableProducts</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">, </span><span class="s1">Faker faker</span><span class="s2">, </span><span class="s1">String </span><span class="s2">[] </span><span class="s1">categories</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================已上架商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">List </span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">availableProducts </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product</span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if</span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getStockQuantity</span><span class="s2">() &gt; </span><span class="s4">50</span><span class="s2">){</span>
+                <span class="s1">availableProducts</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+            <span class="s2">}</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">availableProducts</span><span class="s2">){</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+    <span class="s0">private static void </span><span class="s1">unavailableProducts</span><span class="s2">(</span><span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">productList</span><span class="s2">) {</span>
+        <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s3">&quot;================已下架商品================&quot;</span><span class="s2">);</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Product</span><span class="s2">&gt; </span><span class="s1">removedProduct </span><span class="s2">= </span><span class="s0">new </span><span class="s1">ArrayList</span><span class="s2">&lt;&gt;();</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">productList</span><span class="s2">) {</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">product</span><span class="s2">.</span><span class="s1">getStockQuantity</span><span class="s2">() == </span><span class="s4">0</span><span class="s2">)</span>
+                <span class="s1">removedProduct</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Product product </span><span class="s2">: </span><span class="s1">removedProduct</span><span class="s2">) {</span>
+            <span class="s1">System</span><span class="s2">.</span><span class="s1">out</span><span class="s2">.</span><span class="s1">println</span><span class="s2">(</span><span class="s1">product</span><span class="s2">);</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+<span class="s2">}</span></pre>
+</body>
+</html>
